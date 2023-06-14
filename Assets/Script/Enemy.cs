@@ -24,14 +24,44 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void MoveDown()
+    void MoveDown()
     {
         transform.Translate(Vector3.down * speed * Time.deltaTime);
     }
 
-    private void Respawn()
+    void Respawn()
     {
         var randomXPosition = Random.Range(-8, 8);
         transform.position = new Vector3(randomXPosition, 7);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == Player.TAG)
+        {
+            OnPlayerHit(other);
+        }
+
+
+        if (other.tag == Laser.TAG)
+        {
+            OnLaserHit(other);
+        }
+    }
+
+    void OnPlayerHit(Collider other)
+    {
+        var player = other.transform.GetComponent<Player>();
+        if (player != null)
+        {
+            player.Damage();
+        }
+        Destroy(gameObject);
+    }
+
+    void OnLaserHit(Collider other)
+    {
+        Destroy(other.gameObject);
+        Destroy(gameObject);
     }
 }

@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public static string TAG = "Player";
+
+    [SerializeField]
+    private short lives = 1;
+
     [SerializeField]
     private float speed = 3.5f;
 
@@ -30,13 +35,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void CalculateMovement()
+    void CalculateMovement()
     {
         Move();
         LimitSpace();
     }
 
-    private void Move()
+    void Move()
     {
         var horizontalInput = GetHorizontalInput();
         var verticalInput = GetVerticalInput();
@@ -44,17 +49,17 @@ public class Player : MonoBehaviour
         transform.Translate(direction * speed * Time.deltaTime);
     }
 
-    private float GetVerticalInput()
+    float GetVerticalInput()
     {
         return Input.GetAxis("Vertical");
     }
 
-    private float GetHorizontalInput()
+    float GetHorizontalInput()
     {
         return Input.GetAxis("Horizontal");
     }
 
-    private void LimitSpace()
+    void LimitSpace()
     {
         var positionX = transform.position.x;
         var positionY = transform.position.y;
@@ -62,12 +67,12 @@ public class Player : MonoBehaviour
         LimitVertically(positionX, positionY);
     }
 
-    private void LimitHorizontally(float positionX, float positionY)
+    void LimitHorizontally(float positionX, float positionY)
     {
         transform.position = new Vector3(positionX, Mathf.Clamp(positionY, -3.8f, 0));
     }
 
-    private void LimitVertically(float positionX, float positionY)
+    void LimitVertically(float positionX, float positionY)
     {
         if (positionX > 11.3f)
         {
@@ -79,11 +84,20 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Shoot()
+    void Shoot()
     {
-        
         nextFireTime = Time.time + fireRateTime;
         Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y + 0.8f), Quaternion.identity);
+    }
+
+    public void Damage()
+    {
+        lives--;
+
+        if (lives == 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
 }
