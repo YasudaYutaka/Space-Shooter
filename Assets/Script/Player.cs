@@ -90,7 +90,7 @@ public class Player : MonoBehaviour
     void Shoot()
     {
         nextFireTime = Time.time + fireRateTime;
-        Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y + 0.8f), Quaternion.identity);
+        Instantiate(laserPrefab, new Vector3(transform.position.x, transform.position.y + 0.5f), Quaternion.identity);
     }
 
     public void Damage()
