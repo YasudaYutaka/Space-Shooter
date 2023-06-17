@@ -16,6 +16,9 @@ public class Player : MonoBehaviour
     private GameObject laserPrefab;
 
     [SerializeField]
+    private SpawnManager spawnManager;
+
+    [SerializeField]
     private float fireRateTime = 0.15f;
 
     private float nextFireTime;
@@ -96,6 +99,7 @@ public class Player : MonoBehaviour
 
         if (lives == 0)
         {
+            spawnManager.OnPlayerDeath();
             Destroy(gameObject);
         }
     }
