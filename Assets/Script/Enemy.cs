@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
         transform.position = new Vector3(randomXPosition, 7);
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == Player.TAG)
         {
@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void OnPlayerHit(Collider other)
+    void OnPlayerHit(Collider2D other)
     {
         var player = other.transform.GetComponent<Player>();
         if (player != null)
@@ -59,7 +59,7 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void OnLaserHit(Collider other)
+    void OnLaserHit(Collider2D other)
     {
         Destroy(other.gameObject);
         Destroy(gameObject);
