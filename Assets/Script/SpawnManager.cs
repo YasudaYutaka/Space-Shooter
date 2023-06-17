@@ -13,16 +13,9 @@ public class SpawnManager : MonoBehaviour
 
     private bool keepSpawning = true;
 
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(SpawnRoutine());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     IEnumerator SpawnRoutine()
